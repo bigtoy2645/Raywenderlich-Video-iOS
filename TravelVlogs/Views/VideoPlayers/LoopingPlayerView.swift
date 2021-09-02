@@ -31,17 +31,65 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import AVFoundation
 
 final class LoopingPlayerUIView: UIView {
 	private var allURLs: [URL]
+  private var player: AVQueuePlayer?
+  private var token: NSKeyValueObservation?
 
 	init(urls: [URL]) {
 		allURLs = urls
+    
+    player = AVQueuePlayer()
 
 		super.init(frame: .zero)
+    
+    addAllVideosToPlayer()
+    player?.volume = 0.0
+    player?.play()
+    playerLayer.player = player
+    
+    // KVO
+    token = player?.observe(\.currentItem) { [weak self] player, _ in
+      if player.items().count == 1 {  // 모두 실행하면 Queue에 다시 추가
+        self?.addAllVideosToPlayer()
+      }
+    }
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+  
+  override class var layerClass: AnyClass {
+    return AVPlayerLayer.self
+  }
+  
+  var playerLayer: AVPlayerLayer {
+    return layer as! AVPlayerLayer
+  }
+  
+  private func addAllVideosToPlayer() {
+    for url in allURLs {
+      let asset = AVURLAsset(url: url)
+
+      let item = AVPlayerItem(asset: asset)
+      
+      player?.insert(item, after: player?.items().last)
+    }
+  }
+
+}
+
+struct LoopingPlayerView: UIViewRepresentable {
+  let videoURLs: [URL]
+  
+  func makeUIView(context: Context) -> LoopingPlayerUIView {
+    let view = LoopingPlayerUIView(urls: videoURLs)
+    return view
+  }
+  
+  func updateUIView(_ uiView: LoopingPlayerUIView, context: Context) { }
+
 }

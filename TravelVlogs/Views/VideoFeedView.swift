@@ -31,9 +31,12 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import AVKit
 
 struct VideoFeedView: View {
-  private let videos = Video.fetchLocalVideos()
+  private let videos = Video.fetchLocalVideos() + Video.fetchRemoteVideos()
+  @State private var selectedVideo: Video?
+  private let videoClips = VideoClip.urls
 
   var body: some View {
     NavigationView {
@@ -42,12 +45,32 @@ struct VideoFeedView: View {
         ForEach(videos) { video in
           Button {
             // Open Video Player
+            selectedVideo = video
           } label: {
             VideoRow(video: video)
           }
         }
       }
       .navigationTitle("Travel Vlogs")
+      .fullScreenCover(item: $selectedVideo) {
+        // On dismiss closure
+      } content: { item in
+        makeFullScreenVideoPlayer(for: item)
+      }
+    }
+  }
+  
+  @ViewBuilder
+  private func makeFullScreenVideoPlayer(for video: Video) -> some View {
+    if let url = video.videoURL {
+      let avPlayer = AVPlayer(url: url)
+      VideoPlayer(player: avPlayer)
+        .edgesIgnoringSafeArea(.all)
+        .onAppear() {
+          avPlayer.play()
+        }
+    } else {
+      ErrorView()
     }
   }
 
@@ -55,7 +78,7 @@ struct VideoFeedView: View {
     HStack {
       Spacer()
 
-      Rectangle()
+      LoopingPlayerView(videoURLs: videoClips)
         .background(Color.black)
         .frame(width: 250, height: 140)
         .cornerRadius(8)
