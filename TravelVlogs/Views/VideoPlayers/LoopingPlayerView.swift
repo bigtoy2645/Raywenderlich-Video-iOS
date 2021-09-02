@@ -46,8 +46,6 @@ final class LoopingPlayerUIView: UIView {
 		super.init(frame: .zero)
     
     addAllVideosToPlayer()
-    player?.volume = 0.0
-    player?.play()
     playerLayer.player = player
     
     // KVO
@@ -80,16 +78,42 @@ final class LoopingPlayerUIView: UIView {
     }
   }
 
+  func setVolume(_ value: Float) {
+    player?.volume = value
+  }
+
+  func setRate(_ value: Float) {
+    player?.rate = value
+  }
+
+  func cleanup() {
+    player?.pause()
+    player?.removeAllItems()
+    player = nil
+  }
 }
 
 struct LoopingPlayerView: UIViewRepresentable {
   let videoURLs: [URL]
+  @Binding var rate: Float
+  @Binding var volume: Float
   
   func makeUIView(context: Context) -> LoopingPlayerUIView {
     let view = LoopingPlayerUIView(urls: videoURLs)
+    
+    view.setVolume(volume)
+    view.setRate(rate)
+    
     return view
   }
   
-  func updateUIView(_ uiView: LoopingPlayerUIView, context: Context) { }
+  func updateUIView(_ uiView: LoopingPlayerUIView, context: Context) {
+    uiView.setVolume(volume)
+    uiView.setRate(rate)
+  }
+  
+  static func dismantleUIView(_ uiView: LoopingPlayerUIView, coordinator: ()) {
+    uiView.cleanup()
+  }
 
 }

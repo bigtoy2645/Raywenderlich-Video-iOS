@@ -35,8 +35,10 @@ import AVKit
 
 struct VideoFeedView: View {
   private let videos = Video.fetchLocalVideos() + Video.fetchRemoteVideos()
-  @State private var selectedVideo: Video?
   private let videoClips = VideoClip.urls
+  @State private var selectedVideo: Video?
+  @State private var embeddedVideoRate: Float = 0.0
+  @State private var embeddedVideoVolume: Float = 0.0
 
   var body: some View {
     NavigationView {
@@ -54,6 +56,7 @@ struct VideoFeedView: View {
       .navigationTitle("Travel Vlogs")
       .fullScreenCover(item: $selectedVideo) {
         // On dismiss closure
+        embeddedVideoRate = 1.0
       } content: { item in
         makeFullScreenVideoPlayer(for: item)
       }
@@ -68,6 +71,7 @@ struct VideoFeedView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear() {
           avPlayer.play()
+          embeddedVideoRate = 0.0
         }
     } else {
       ErrorView()
@@ -78,12 +82,24 @@ struct VideoFeedView: View {
     HStack {
       Spacer()
 
-      LoopingPlayerView(videoURLs: videoClips)
+      LoopingPlayerView(videoURLs: videoClips,
+                        rate: $embeddedVideoRate,
+                        volume: $embeddedVideoVolume)
         .background(Color.black)
         .frame(width: 250, height: 140)
         .cornerRadius(8)
         .shadow(radius: 4)
         .padding(.vertical)
+        .onAppear {
+          embeddedVideoRate = 1.0
+        }
+        .onTapGesture(count: 2) {
+          embeddedVideoRate = embeddedVideoRate == 1.0 ? 2.0 : 1.0
+        }
+        .onTapGesture {
+          embeddedVideoVolume = embeddedVideoVolume == 1.0 ? 0.0 : 1.0
+        }
+
 
       Spacer()
     }
