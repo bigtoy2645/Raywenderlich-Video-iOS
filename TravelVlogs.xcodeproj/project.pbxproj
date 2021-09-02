@@ -12,6 +12,7 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		1ACFEE3226E0BC3900B6D56A /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACFEE3126E0BC3900B6D56A /* VideoPlayerView.swift */; };
 		302DE07E263DCDB600200D25 /* LoopingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302DE07D263DCDB600200D25 /* LoopingPlayerView.swift */; };
 		3052FF77262DC11E00F01491 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3052FF76262DC11E00F01491 /* ErrorView.swift */; };
 		3052FF82262DCFB700F01491 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3052FF81262DCFB700F01491 /* Utils.swift */; };
@@ -39,6 +40,7 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1ACFEE3126E0BC3900B6D56A /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		302DE07D263DCDB600200D25 /* LoopingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingPlayerView.swift; sourceTree = "<group>"; };
 		3052FF76262DC11E00F01491 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3052FF81262DCFB700F01491 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				302DE07D263DCDB600200D25 /* LoopingPlayerView.swift */,
+				1ACFEE3126E0BC3900B6D56A /* VideoPlayerView.swift */,
 			);
 			path = VideoPlayers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				302DE07E263DCDB600200D25 /* LoopingPlayerView.swift in Sources */,
 				30980A40262D0939002B6DB1 /* VideoRow.swift in Sources */,
 				18D775C522AD944300AE281E /* VideoFeedView.swift in Sources */,
+				1ACFEE3226E0BC3900B6D56A /* VideoPlayerView.swift in Sources */,
 				30980A1C262CF372002B6DB1 /* Video.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
 				3052FF82262DCFB700F01491 /* Utils.swift in Sources */,
@@ -443,6 +447,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "TravelVlogs/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,6 +468,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "TravelVlogs/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

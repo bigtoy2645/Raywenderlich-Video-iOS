@@ -31,29 +31,20 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import AVFoundation
+import AVKit
 
-@main
-struct AppMain: App {
-  var body: some Scene {
-    WindowGroup {
-      VideoFeedView()
-    }
+/// SwiftUI - UIKit Bridge
+/// AVPlayerViewController를 사용하면 Picture in Picture 기능 사용 가능함.
+/// Simulator에서 동작하지 않을 수 있음.
+struct VideoPlayerView: UIViewControllerRepresentable {
+  let player: AVPlayer?
+
+  func makeUIViewController(context: Context) -> AVPlayerViewController {
+    let controller = AVPlayerViewController()
+    controller.player = player
+    return controller
   }
-  
-  init() {
-//    setMixWithOthersPlaybackCategory()
-    setVideoPlaybackCategory()
-  }
-  
-  private func setMixWithOthersPlaybackCategory() {
-    try? AVAudioSession.sharedInstance().setCategory(
-      AVAudioSession.Category.ambient,
-      mode: AVAudioSession.Mode.moviePlayback,
-      options: [.mixWithOthers])
-  }
-  
-  private func setVideoPlaybackCategory() {
-    try? AVAudioSession.sharedInstance().setCategory(.playback)
-  }
+
+  func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {}
 }
+
